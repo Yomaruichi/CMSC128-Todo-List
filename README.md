@@ -123,5 +123,4 @@ Implemented using Firebase Authentication combined with React Context (`authCont
   * Once completed, users can click a "Back to Sign In" link to return to the login interface
 
 ## App Screenshots
-![Project Screenshot 1](client/src/assets/appSS1.png)
-![Project Screenshot 2](client/src/assets/appSS2.png)
+![Project Screenshot 1](client/src/assets/appSS3.png)
