@@ -64,4 +64,11 @@ cd ../server
 npm install
 ```
 
-## Data Operations (To be filled up along the way)
+## Data Operations
+
+| Method | Route | Payload | Function | Description |
+| --- | --- | --- | --- | --- |
+| GET | /api/todos/ |
+| POST |  |
+| PUT |  |
+| DELETE | 
