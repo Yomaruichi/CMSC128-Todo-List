@@ -1,10 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import './App.css';
+import Login from './Login';
+import { useAuth } from './authContext';
 import { getTodos, addTodo, updateTodo, toggleTodo, deleteTodo } from './api';
 
 const EMPTY_FORM = { title: '', dueDate: '', priority: 'Med', tag: 'School' };
 
 export default function App() {
+  const { user, logout } = useAuth();
+
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,14 +20,23 @@ export default function App() {
   const [filterTag, setFilterTag] = useState('All');
   const [filterPriority, setFilterPriority] = useState('All');
 
-  // Load tasks from the server on first render
+  // Load tasks when a user logs in; clear everything when they log out
   useEffect(() => {
-    loadTasks();
-  }, []);
+    if (user) {
+      loadTasks();
+    } else {
+      setTasks([]);
+      setForm(EMPTY_FORM);
+      setEditingId(null);
+      setError(null);
+      setLoading(false);
+    }
+  }, [user]);
 
   async function loadTasks() {
     try {
       setLoading(true);
+      setError(null);
       const data = await getTodos();
       setTasks(data);
     } catch (err) {
@@ -106,10 +119,28 @@ export default function App() {
       });
   }, [tasks, sortBy, filterTag, filterPriority]);
 
+  // Logged out: show the login / sign up / reset screen
+  if (!user) {
+    return (
+      <div className="app-container">
+        <header>
+          <h1>To-Do List App</h1>
+        </header>
+        <Login />
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
-      <header>
+      <header className="header-bar">
         <h1>To-Do List</h1>
+        <div className="header-user">
+          <span>{user.email}</span>
+          <button className="btn btn-secondary" onClick={logout}>
+            Log Out
+          </button>
+        </div>
       </header>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -211,7 +242,7 @@ export default function App() {
         {loading ? (
           <p>Loading...</p>
         ) : visibleTasks.length === 0 ? (
-          <p>No tasks yet.</p>
+          <p>{tasks.length === 0 ? 'No tasks yet.' : 'No tasks match your filters.'}</p>
         ) : (
           <ul className="task-list">
             {visibleTasks.map((task) => (
