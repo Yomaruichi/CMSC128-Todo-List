@@ -124,3 +124,6 @@ Implemented using Firebase Authentication combined with React Context (`authCont
 
 ## App Screenshots
 ![Project Screenshot 1](client/src/assets/appSS3.png)
+![Project Screenshot 2](client/src/assets/appSS4.png)
+![Project Screenshot 3](client/src/assets/appSS5.png)
+![Project Screenshot 4](client/src/assets/appSS6.png)
