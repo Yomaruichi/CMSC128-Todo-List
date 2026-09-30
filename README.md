@@ -64,11 +64,33 @@ cd ../server
 npm install
 ```
 
+6. Run the server
+```bash
+npm run start
+```
+
 ## Data Operations
+
+All `/api/todos` routes require the header `Authorization: Bearer <Firebase ID token>`. Todos are stored in Firestore at `users/{uid}/todos/{todoId}`.
 
 | Method | Route | Payload | Function | Description |
 | --- | --- | --- | --- | --- |
-| GET | /api/todos/ |
-| POST |  |
-| PUT |  |
-| DELETE | 
+| GET | /api/todos | none | getTodos | List all todos of the logged-in user |
+| GET | /api/todos/:id | none | getTodo | Get one todo |
+| POST | /api/todos | `{ title, description, dueDate }` | createTodo | Create a todo (`completed: false`, `createdAt` set by server) |
+| PUT | /api/todos/:id | `{ title?, description?, dueDate?, completed? }` | updateTodo | Update fields of a todo |
+| DELETE | /api/todos/:id | none | deleteTodo | Delete a todo |
+
+## Authentication Operations
+
+| Action | Firebase call | Input | Result |
+| --- | --- | --- | --- |
+| Sign up | createUserWithEmailAndPassword | email, password, name | Creates account, sets display name, sends verification email |
+| Log in | signInWithEmailAndPassword | email, password | Starts session, issues ID token |
+| Log out | signOut | none | Ends session |
+| Forgot password | sendPasswordResetEmail | email | Sends reset link |
+| Session check | onAuthStateChanged | none | Restores logged-in user on page load |
+
+## App Screenshots
+![Project Screenshot 1](client\src\assets\appSS1.png)
+![Project Screenshot 2](client\src\assets\appSS2.png)
