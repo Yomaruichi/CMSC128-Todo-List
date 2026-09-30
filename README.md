@@ -92,5 +92,5 @@ All `/api/todos` routes require the header `Authorization: Bearer <Firebase ID t
 | Session check | onAuthStateChanged | none | Restores logged-in user on page load |
 
 ## App Screenshots
-![Project Screenshot 1](client\src\assets\appSS1.png)
-![Project Screenshot 2](client\src\assets\appSS2.png)
+![Project Screenshot 1](client/src/assets/appSS1.png)
+![Project Screenshot 2](client/src/assets/appSS2.png)
